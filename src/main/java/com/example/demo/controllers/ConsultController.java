@@ -1,19 +1,19 @@
-package com.example.demo.controller;
+package com.example.demo.controllers;
 
 import com.example.demo.dto.ConsultDTO;
-import com.example.demo.entity.Consult;
-import com.example.demo.service.implementation.ConsultInterfaceImpl;
+import com.example.demo.entities.Consult;
+import com.example.demo.services.implementations.ConsultServiceImpl;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/v1/consults")
+@RequestMapping("/api/v1/consultations")
 public class ConsultController {
 
     @Autowired
-    private ConsultInterfaceImpl consultService;
+    private ConsultServiceImpl consultService;
 
     @GetMapping
     public Iterable<Consult> getAllConsults() {

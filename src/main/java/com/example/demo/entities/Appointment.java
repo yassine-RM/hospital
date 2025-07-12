@@ -1,4 +1,4 @@
-package com.example.demo.entity;
+package com.example.demo.entities;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
@@ -23,7 +23,7 @@ public class Appointment {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Doctor doctor;
 
-    @OneToOne(mappedBy = "appointment")
+    @OneToOne(mappedBy = "appointment",  cascade = CascadeType.ALL)
     private Consult consult;
 
 }

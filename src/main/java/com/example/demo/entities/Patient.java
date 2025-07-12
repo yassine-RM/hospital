@@ -1,4 +1,4 @@
-package com.example.demo.entity;
+package com.example.demo.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -7,7 +7,7 @@ import java.util.List;
 
 @Entity
 @Data
-public class Doctor {
+public class Patient {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,10 +15,10 @@ public class Doctor {
 
     private String name;
     private String email;
-    private String speciality;
-    private String experience;
+    private String gender;
+    private String dob;
 
-    @OneToMany(mappedBy = "doctor")
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
     private List<Appointment> appointments;
 
 }

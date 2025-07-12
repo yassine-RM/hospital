@@ -1,16 +1,16 @@
-package com.example.demo.service.implementation;
+package com.example.demo.services.implementations;
 
 import com.example.demo.dto.AppointmentDTO;
-import com.example.demo.entity.Appointment;
-import com.example.demo.entity.Patient;
-import com.example.demo.repository.IAppointmentRepository;
-import com.example.demo.service.interfaces.AppointmentInterface;
+import com.example.demo.entities.Appointment;
+import com.example.demo.repositories.IAppointmentRepository;
+import com.example.demo.services.interfaces.AppointmentInterface;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
 @Service
-public class AppointmentInterfaceImpl implements AppointmentInterface {
+public class AppointmentServiceImpl implements AppointmentInterface {
 
     @Autowired
     private IAppointmentRepository appointmentRepository;
@@ -34,7 +34,7 @@ public class AppointmentInterfaceImpl implements AppointmentInterface {
      */
     @Override
     public Appointment getAppointmentById(Long id) {
-        return appointmentRepository.findById(id).orElse(null);
+        return appointmentRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Appointment not found with id " + id));
     }
 
     /**

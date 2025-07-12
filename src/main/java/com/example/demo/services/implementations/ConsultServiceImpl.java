@@ -1,14 +1,15 @@
-package com.example.demo.service.implementation;
+package com.example.demo.services.implementations;
 
 import com.example.demo.dto.ConsultDTO;
-import com.example.demo.entity.Consult;
-import com.example.demo.repository.IConsultRepository;
-import com.example.demo.service.interfaces.ConsultInterface;
+import com.example.demo.entities.Consult;
+import com.example.demo.repositories.IConsultRepository;
+import com.example.demo.services.interfaces.ConsultInterface;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ConsultInterfaceImpl implements ConsultInterface {
+public class ConsultServiceImpl implements ConsultInterface {
 
     @Autowired
     private IConsultRepository consultRepository;
@@ -32,7 +33,7 @@ public class ConsultInterfaceImpl implements ConsultInterface {
      */
     @Override
     public Consult getConsultById(Long id) {
-       return consultRepository.findById(id).orElse(null);
+       return consultRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Consultation not found with id " + id));
     }
 
     /**

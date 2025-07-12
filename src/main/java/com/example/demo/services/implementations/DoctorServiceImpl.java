@@ -1,17 +1,30 @@
-package com.example.demo.service.implementation;
+package com.example.demo.services.implementations;
 
 import com.example.demo.dto.DoctorDTO;
-import com.example.demo.entity.Doctor;
-import com.example.demo.repository.IDoctorRepository;
-import com.example.demo.service.interfaces.DoctorInterface;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.demo.entities.Doctor;
+import com.example.demo.mappers.DoctorMapper;
+import com.example.demo.repositories.IDoctorRepository;
+import com.example.demo.services.interfaces.DoctorInterface;
+import jakarta.persistence.EntityNotFoundException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
-public class DoctorInterfaceImpl implements DoctorInterface {
+public class DoctorServiceImpl implements DoctorInterface {
 
-    @Autowired
-    private IDoctorRepository doctorRepository;
+    private final IDoctorRepository doctorRepository;
+    private final DoctorMapper doctorMapper;
+
+
+    public DoctorServiceImpl(
+            IDoctorRepository doctorRepository,
+            DoctorMapper doctorMapper
+    ) {
+        this.doctorRepository = doctorRepository;
+        this.doctorMapper = doctorMapper;
+    }
+
     /**
      * @param doctorDTO
      * @return
@@ -34,7 +47,7 @@ public class DoctorInterfaceImpl implements DoctorInterface {
     @Override
     public Doctor getDoctorById(Long id) {
 
-        return doctorRepository.findById(id).orElse(null);
+        return doctorRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Doctor not found with id " + id));
     }
 
     /**
@@ -66,7 +79,8 @@ public class DoctorInterfaceImpl implements DoctorInterface {
      * @return
      */
     @Override
-    public Iterable<Doctor> getAllDoctors() {
-        return doctorRepository.findAll();
+    public Page<DoctorDTO> getAllDoctors(Pageable pageable) {
+        return doctorRepository.findAll(pageable)
+                .map(doctorMapper::toDto);
     }
 }

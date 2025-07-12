@@ -1,7 +1,6 @@
-package com.example.demo.repository;
+package com.example.demo.repositories;
 
-import com.example.demo.entity.Consult;
-import com.example.demo.entity.Patient;
+import com.example.demo.entities.Consult;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface IConsultRepository extends JpaRepository<Consult,Long> {

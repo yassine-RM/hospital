@@ -1,14 +1,15 @@
-package com.example.demo.service.implementation;
+package com.example.demo.services.implementations;
 
 import com.example.demo.dto.PatientDTO;
-import com.example.demo.entity.Patient;
-import com.example.demo.repository.IPatientRepository;
-import com.example.demo.service.interfaces.PatientInterface;
+import com.example.demo.entities.Patient;
+import com.example.demo.repositories.IPatientRepository;
+import com.example.demo.services.interfaces.PatientInterface;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class PatientInterfaceImpl implements PatientInterface {
+public class PatientServiceImpl implements PatientInterface {
 
     @Autowired
     private IPatientRepository patientRepository;
@@ -35,7 +36,7 @@ public class PatientInterfaceImpl implements PatientInterface {
     @Override
     public Patient getPatientById(Long id) {
 
-        return patientRepository.findById(id).orElse(null);
+        return patientRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Patient not found with id " + id));
     }
 
     /**

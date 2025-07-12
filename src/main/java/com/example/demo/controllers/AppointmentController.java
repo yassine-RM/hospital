@@ -1,8 +1,8 @@
-package com.example.demo.controller;
+package com.example.demo.controllers;
 
 import com.example.demo.dto.AppointmentDTO;
-import com.example.demo.entity.Appointment;
-import com.example.demo.service.implementation.AppointmentInterfaceImpl;
+import com.example.demo.entities.Appointment;
+import com.example.demo.services.implementations.AppointmentServiceImpl;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 public class AppointmentController {
 
     @Autowired
-    private AppointmentInterfaceImpl appointmentService;
+    private AppointmentServiceImpl appointmentService;
 
     @GetMapping
     public Iterable<Appointment> getAllAppointments() {

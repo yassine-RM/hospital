@@ -1,7 +1,7 @@
-package com.example.demo.service.interfaces;
+package com.example.demo.services.interfaces;
 
 import com.example.demo.dto.PatientDTO;
-import com.example.demo.entity.Patient;
+import com.example.demo.entities.Patient;
 
 public interface PatientInterface {
 

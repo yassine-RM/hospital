@@ -1,7 +1,7 @@
-package com.example.demo.service.interfaces;
+package com.example.demo.services.interfaces;
 
 import com.example.demo.dto.ConsultDTO;
-import com.example.demo.entity.Consult;
+import com.example.demo.entities.Consult;
 
 public interface ConsultInterface {
 

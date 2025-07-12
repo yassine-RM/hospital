@@ -1,8 +1,8 @@
 package com.example.demo.dto;
 
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 
 @Data
@@ -18,8 +18,8 @@ public class DoctorDTO {
     @NotBlank(message = "Speciality is required")
     private String speciality;
 
-    @NotBlank(message = "Experience is required")
-    private String experience;
+    @Min(1)
+    private int experience;
 
 
 

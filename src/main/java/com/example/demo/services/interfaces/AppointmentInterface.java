@@ -1,7 +1,7 @@
-package com.example.demo.service.interfaces;
+package com.example.demo.services.interfaces;
 
 import com.example.demo.dto.AppointmentDTO;
-import com.example.demo.entity.Appointment;
+import com.example.demo.entities.Appointment;
 
 public interface AppointmentInterface {
 

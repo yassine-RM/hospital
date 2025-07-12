@@ -1,21 +1,19 @@
-package com.example.demo.controller;
+package com.example.demo.controllers;
 
 import com.example.demo.dto.PatientDTO;
-import com.example.demo.entity.Patient;
-import com.example.demo.service.implementation.PatientInterfaceImpl;
+import com.example.demo.entities.Patient;
+import com.example.demo.services.implementations.PatientServiceImpl;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Date;
 
 @RestController
 @RequestMapping("/api/v1/patients")
 public class PatientController {
 
     @Autowired
-    private PatientInterfaceImpl patientService;
+    private PatientServiceImpl patientService;
 
     @GetMapping
     public Iterable<Patient> getAllPatients() {
