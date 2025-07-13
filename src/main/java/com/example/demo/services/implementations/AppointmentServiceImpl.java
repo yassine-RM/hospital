@@ -40,6 +40,7 @@ public class AppointmentServiceImpl implements AppointmentInterface {
         appointment.setDoctor(appointmentDTO.getDoctor());
         appointment.setDate(appointmentDTO.getDate());
         appointment.setStatus(appointmentDTO.getStatus());
+
         Appointment createdAppointment = appointmentRepository.save(appointment);
         return appointmentMapper.toResource(createdAppointment);
     }
