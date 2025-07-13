@@ -31,15 +31,14 @@ public class AppointmentServiceImpl implements AppointmentInterface {
      * @return
      */
     @Override
-    public AppointmentResource create(AppointmentDTO appointmentDTO) {
+    public Appointment create(AppointmentDTO appointmentDTO) {
         Appointment appointment = new Appointment();
         appointment.setPatient(appointmentDTO.getPatient());
         appointment.setDoctor(appointmentDTO.getDoctor());
         appointment.setDate(appointmentDTO.getDate());
         appointment.setStatus(appointmentDTO.getStatus());
 
-        Appointment createdAppointment = appointmentRepository.save(appointment);
-        return appointmentMapper.toResource(createdAppointment);
+         return appointmentRepository.save(appointment);
     }
 
     /**

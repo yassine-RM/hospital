@@ -25,9 +25,6 @@ public class PatientController {
 
     @PostMapping
     public Patient createPatient(@RequestBody @Valid PatientDTO patientDTO) {
-        System.out.println(
-                patientDTO.getName() + " " + patientDTO.getEmail() + " " + patientDTO.getGender() + " " + patientDTO.getDob()
-        );
         return patientService.create(patientDTO);
     }
 

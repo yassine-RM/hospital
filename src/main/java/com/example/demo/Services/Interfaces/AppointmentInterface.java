@@ -8,7 +8,7 @@ import org.springframework.data.domain.Pageable;
 
 public interface AppointmentInterface {
 
-    public AppointmentResource create(AppointmentDTO appointmentDTO);
+    public Appointment create(AppointmentDTO appointmentDTO);
     public Appointment getAppointmentById(Long id);
     public Appointment updateAppointment(Long id, AppointmentDTO appointmentDTO);
     public void deleteAppointment(Long id);

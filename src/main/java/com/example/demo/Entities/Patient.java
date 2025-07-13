@@ -1,5 +1,6 @@
 package com.example.demo.Entities;
 
+import com.example.demo.Enums.Gender;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -16,7 +17,9 @@ public class Patient {
 
     private String name;
     private String email;
-    private String gender;
+
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
     private String dob;
 
     @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
