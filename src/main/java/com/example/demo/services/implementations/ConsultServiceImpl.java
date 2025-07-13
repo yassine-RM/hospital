@@ -2,17 +2,33 @@ package com.example.demo.services.implementations;
 
 import com.example.demo.dto.ConsultDTO;
 import com.example.demo.entities.Consult;
+import com.example.demo.mappers.AppointmentMapper;
+import com.example.demo.mappers.ConsultMapper;
+import com.example.demo.repositories.IAppointmentRepository;
 import com.example.demo.repositories.IConsultRepository;
+import com.example.demo.resources.ConsultResource;
 import com.example.demo.services.interfaces.ConsultInterface;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ConsultServiceImpl implements ConsultInterface {
 
-    @Autowired
-    private IConsultRepository consultRepository;
+    private final IConsultRepository consultRepository;
+    private final ConsultMapper consultMapper;
+
+    ConsultServiceImpl(
+            IConsultRepository consultRepository,
+            ConsultMapper consultMapper
+    ){
+        this.consultRepository = consultRepository;
+        this.consultMapper = consultMapper;
+    }
+
+
     /**
      * @param consultDTO
      * @return
@@ -61,7 +77,9 @@ public class ConsultServiceImpl implements ConsultInterface {
      * @return
      */
     @Override
-    public Iterable<Consult> getAllConsults() {
-        return consultRepository.findAll();
+    public Page<ConsultResource> getAllConsults(Pageable pageable) {
+
+        return consultRepository.findAll(pageable)
+                .map(consultMapper::toResource);
     }
 }

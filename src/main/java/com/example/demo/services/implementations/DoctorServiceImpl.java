@@ -4,6 +4,7 @@ import com.example.demo.dto.DoctorDTO;
 import com.example.demo.entities.Doctor;
 import com.example.demo.mappers.DoctorMapper;
 import com.example.demo.repositories.IDoctorRepository;
+import com.example.demo.resources.DoctorResource;
 import com.example.demo.services.interfaces.DoctorInterface;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.data.domain.Page;
@@ -79,8 +80,8 @@ public class DoctorServiceImpl implements DoctorInterface {
      * @return
      */
     @Override
-    public Page<DoctorDTO> getAllDoctors(Pageable pageable) {
+    public Page<DoctorResource> getAllDoctors(Pageable pageable) {
         return doctorRepository.findAll(pageable)
-                .map(doctorMapper::toDto);
+                .map(doctorMapper::toResource);
     }
 }

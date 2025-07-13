@@ -2,9 +2,12 @@ package com.example.demo.controllers;
 
 import com.example.demo.dto.ConsultDTO;
 import com.example.demo.entities.Consult;
+import com.example.demo.resources.ConsultResource;
 import com.example.demo.services.implementations.ConsultServiceImpl;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,8 +19,8 @@ public class ConsultController {
     private ConsultServiceImpl consultService;
 
     @GetMapping
-    public Iterable<Consult> getAllConsults() {
-        return consultService.getAllConsults();
+    public Page<ConsultResource> getAllConsults(Pageable pageable) {
+        return consultService.getAllConsults(pageable);
     }
 
     @PostMapping

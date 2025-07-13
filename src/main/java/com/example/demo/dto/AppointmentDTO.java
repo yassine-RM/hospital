@@ -2,6 +2,7 @@ package com.example.demo.dto;
 
 import com.example.demo.entities.Doctor;
 import com.example.demo.entities.Patient;
+import com.example.demo.enums.AppointmentStatus;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -13,6 +14,9 @@ public class AppointmentDTO {
 
     @NotNull(message = "Date is required")
     private Date date;
+
+    @NotNull(message = "Status is required")
+    private AppointmentStatus status;
 
 
     @Valid

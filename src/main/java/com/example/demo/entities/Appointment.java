@@ -1,5 +1,6 @@
 package com.example.demo.entities;
 
+import com.example.demo.enums.AppointmentStatus;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -13,7 +14,10 @@ public class Appointment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Date date;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private AppointmentStatus status;
 
     @ManyToOne
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
@@ -26,4 +30,5 @@ public class Appointment {
     @OneToOne(mappedBy = "appointment",  cascade = CascadeType.ALL)
     private Consult consult;
 
+    private Date date;
 }

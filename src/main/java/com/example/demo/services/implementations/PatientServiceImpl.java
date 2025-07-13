@@ -2,20 +2,32 @@ package com.example.demo.services.implementations;
 
 import com.example.demo.dto.PatientDTO;
 import com.example.demo.entities.Patient;
+import com.example.demo.mappers.PatientMapper;
 import com.example.demo.repositories.IPatientRepository;
+import com.example.demo.resources.PatientResource;
 import com.example.demo.services.interfaces.PatientInterface;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
 public class PatientServiceImpl implements PatientInterface {
 
-    @Autowired
-    private IPatientRepository patientRepository;
+    private final IPatientRepository patientRepository;
+    private final PatientMapper patientMapper;
+
+    PatientServiceImpl(
+            IPatientRepository patientRepository,
+            PatientMapper patientMapper
+    ){
+        this.patientRepository = patientRepository;
+        this.patientMapper = patientMapper;
+    }
 
     /**
-     * @param patient
+     * @param patientDTO
      * @return Patient
      */
     @Override
@@ -69,7 +81,9 @@ public class PatientServiceImpl implements PatientInterface {
      * @return List<Patient>
      */
     @Override
-    public Iterable<Patient> getAllPatients() {
-        return patientRepository.findAll();
+    public Page<PatientResource> getAllPatients(Pageable pageable) {
+
+        return patientRepository.findAll(pageable)
+                .map(patientMapper::toResource);
     }
 }

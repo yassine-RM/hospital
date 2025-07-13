@@ -2,30 +2,46 @@ package com.example.demo.services.implementations;
 
 import com.example.demo.dto.AppointmentDTO;
 import com.example.demo.entities.Appointment;
+import com.example.demo.mappers.AppointmentMapper;
+import com.example.demo.mappers.PatientMapper;
 import com.example.demo.repositories.IAppointmentRepository;
+import com.example.demo.repositories.IPatientRepository;
+import com.example.demo.resources.AppointmentResource;
 import com.example.demo.services.interfaces.AppointmentInterface;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 
 @Service
 public class AppointmentServiceImpl implements AppointmentInterface {
 
-    @Autowired
-    private IAppointmentRepository appointmentRepository;
+
+    private final IAppointmentRepository appointmentRepository;
+    private final AppointmentMapper appointmentMapper;
+
+    AppointmentServiceImpl(
+            IAppointmentRepository appointmentRepository,
+            AppointmentMapper appointmentMapper
+    ){
+        this.appointmentRepository = appointmentRepository;
+        this.appointmentMapper = appointmentMapper;
+    }
     /**
      * @param appointmentDTO
      * @return
      */
     @Override
-    public Appointment create(AppointmentDTO appointmentDTO) {
+    public AppointmentResource create(AppointmentDTO appointmentDTO) {
         Appointment appointment = new Appointment();
         appointment.setPatient(appointmentDTO.getPatient());
         appointment.setDoctor(appointmentDTO.getDoctor());
         appointment.setDate(appointmentDTO.getDate());
-
-        return appointmentRepository.save(appointment);
+        appointment.setStatus(appointmentDTO.getStatus());
+        Appointment createdAppointment = appointmentRepository.save(appointment);
+        return appointmentMapper.toResource(createdAppointment);
     }
 
     /**
@@ -65,8 +81,9 @@ public class AppointmentServiceImpl implements AppointmentInterface {
      * @return
      */
     @Override
-    public Iterable<Appointment> getAllAppointments() {
+    public Page<AppointmentResource> getAllAppointments(Pageable pageable) {
 
-        return appointmentRepository.findAll();
+        return appointmentRepository.findAll(pageable)
+                .map(appointmentMapper::toResource);
     }
 }

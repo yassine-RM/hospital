@@ -2,6 +2,7 @@ package com.example.demo.controllers;
 
 import com.example.demo.dto.DoctorDTO;
 import com.example.demo.entities.Doctor;
+import com.example.demo.resources.DoctorResource;
 import com.example.demo.services.implementations.DoctorServiceImpl;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ public class DoctorController {
     private DoctorServiceImpl doctorService;
 
     @GetMapping
-    public Page<DoctorDTO> getAllDoctors(Pageable pageable) {
+    public Page<DoctorResource> getAllDoctors(Pageable pageable) {
         return doctorService.getAllDoctors(pageable);
     }
 

@@ -2,9 +2,12 @@ package com.example.demo.controllers;
 
 import com.example.demo.dto.PatientDTO;
 import com.example.demo.entities.Patient;
+import com.example.demo.resources.PatientResource;
 import com.example.demo.services.implementations.PatientServiceImpl;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,8 +19,8 @@ public class PatientController {
     private PatientServiceImpl patientService;
 
     @GetMapping
-    public Iterable<Patient> getAllPatients() {
-        return patientService.getAllPatients();
+    public Page<PatientResource> getAllPatients(Pageable pageable) {
+        return patientService.getAllPatients(pageable);
     }
 
     @PostMapping
